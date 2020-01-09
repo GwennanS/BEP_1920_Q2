@@ -25,7 +25,16 @@ This mainly consists of:
 - run `python3 cc_library/src/scripts/<custom-device>.py` on Pi to start device
 
 ## Set-up Pi (TODO)
-
+[program:display]
+command=python3 bigtest/display.py
+user=pi
+group_name=pi
+directory=/home/pi
+stdout_logfile=/home/pi/bigtest/logs_display.txt
+redirect_stderr=true
+autostart=true
+autorestart=true
+environment=PYTHONPATH=/home/pi
 
 ## License
 This library is licensed with GNU GPL v3, see `LICENSE.md`.

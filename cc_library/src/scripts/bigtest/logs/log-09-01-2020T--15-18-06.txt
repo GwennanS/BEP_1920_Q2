@@ -1,0 +1,8 @@
+2020-01-09 15:18:06,442 [INFO ]  Start of log for device: display1
+2020-01-09 15:18:06,499 [INFO ]  connected to broker
+2020-01-09 15:18:06,538 [INFO ]  ('subscribed to topic', 'hint')
+2020-01-09 15:18:06,538 [INFO ]  ('subscribed to topic', 'client-computers')
+2020-01-09 15:18:06,539 [INFO ]  ('subscribed to topic', 'display1')
+2020-01-09 15:18:06,539 [INFO ]  ('back-end message published', '{"device_id": "display1", "time_sent": "09-01-2020 15:18:06", "type": "connection", "contents": {"connection": true}}')
+2020-01-09 15:18:06,539 [INFO ]  ('back-end message published', '{"device_id": "display1", "time_sent": "09-01-2020 15:18:06", "type": "status", "contents": {"hint": ""}}')
+2020-01-09 15:18:06,540 [INFO ]  connected OK

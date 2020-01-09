@@ -1,0 +1,681 @@
+{
+  "general": {
+    "name": "Test week 7",
+    "duration": "23h",
+    "host": "192.168.178.102",
+    "port": 1883
+  },
+  "cameras": [
+    {"name": "muppets", "link": "https://www.youtube.com/embed/tgbNymZ7vqY"},
+    {"name": "kittens", "link": "https://www.youtube.com/embed/4MeEoa0Ep0I"}
+  ],
+  "devices": [
+    {
+      "id": "display1",
+      "description": "displays messages",
+      "input": {},
+      "output": {
+        "hint": {
+          "type": "string",
+          "instructions": {
+            "hint": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "display2",
+      "description": "displays messages",
+      "input": {},
+      "output": {
+        "hint": {
+          "type": "string",
+          "instructions": {
+            "hint": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "display3",
+      "description": "displays messages",
+      "input": {},
+      "output": {
+        "hint": {
+          "type": "string",
+          "instructions": {
+            "hint": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "display4",
+      "description": "displays messages",
+      "input": {},
+      "output": {
+        "hint": {
+          "type": "string",
+          "instructions": {
+            "hint": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "display5",
+      "description": "displays messages",
+      "input": {},
+      "output": {
+        "hint": {
+          "type": "string",
+          "instructions": {
+            "hint": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "display6",
+      "description": "displays messages",
+      "input": {},
+      "output": {
+        "hint": {
+          "type": "string",
+          "instructions": {
+            "hint": "string"
+          }
+        }
+      }
+    },
+    {
+      "id": "door1",
+      "description": "device that controls a door magnet through a relay",
+      "input": {},
+      "output": {
+        "door": {
+          "type": "string",
+          "instructions": {
+            "open": "boolean"
+          }
+        }
+      }
+    },
+    {
+      "id": "keypad",
+      "description": "Keypad with input 4 numbers",
+      "input": {
+        "code": "numeric"
+      },
+      "output": {}
+    }
+  ],
+  "timers": [
+    {
+      "id": "timer1",
+      "duration": "10s"
+    }
+  ],
+  "puzzles": [
+    {
+      "name": "keypad to hint1",
+      "rules": [
+        {
+          "id": "keyhint1",
+          "description": "wanneer er 1001 gestuurd word wordt hint 1 gestuurd",
+          "limit": 100,
+          "conditions": {
+            "operator": "AND",
+            "list": [
+              {
+                "type": "device",
+                "type_id": "keypad",
+                "constraints": {
+                  "operator": "AND",
+                  "list": [
+                    {
+                      "component_id": "code",
+                      "comparison": "eq",
+                      "value": 1001
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "rule",
+                "type_id": "start",
+                "constraints": {
+                  "comparison": "gte",
+                  "value": 1
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "device",
+              "type_id": "display1",
+              "message": [
+                {
+                  "component_id": "hint",
+                  "instruction": "hint",
+                  "value": "er is net 1001 ingetoetst dus deze laat dit zien"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "hints": [
+        "Zet de schuiven nauwkeurig"
+      ]
+    },
+    {
+      "name": "keypad to hint2",
+      "rules": [
+        {
+          "id": "keyhint2",
+          "description": "wanneer er 1002 gestuurd word wordt hint 2 gestuurd",
+          "limit": 100,
+          "conditions": {
+            "operator": "AND",
+            "list": [
+              {
+                "type": "device",
+                "type_id": "keypad",
+                "constraints": {
+                  "operator": "AND",
+                  "list": [
+                    {
+                      "component_id": "code",
+                      "comparison": "eq",
+                      "value": 1002
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "rule",
+                "type_id": "start",
+                "constraints": {
+                  "comparison": "gte",
+                  "value": 1
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "device",
+              "type_id": "display2",
+              "message": [
+                {
+                  "component_id": "hint",
+                  "instruction": "hint",
+                  "value": "er is net 1002 ingetoetst dus deze laat dit zien"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "hints": [
+        "Zet de schuiven nauwkeurig"
+      ]
+    },
+    {
+      "name": "keypad to hint3",
+      "rules": [
+        {
+          "id": "keyhint3",
+          "description": "wanneer er 1003 gestuurd word wordt hint 3 gestuurd",
+          "limit": 100,
+          "conditions": {
+            "operator": "AND",
+            "list": [
+              {
+                "type": "device",
+                "type_id": "keypad",
+                "constraints": {
+                  "operator": "AND",
+                  "list": [
+                    {
+                      "component_id": "code",
+                      "comparison": "eq",
+                      "value": 1003
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "rule",
+                "type_id": "start",
+                "constraints": {
+                  "comparison": "gte",
+                  "value": 1
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "device",
+              "type_id": "display3",
+              "message": [
+                {
+                  "component_id": "hint",
+                  "instruction": "hint",
+                  "value": "er is net 1003 ingetoetst dus deze laat dit zien"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "hints": [
+        "Zet de schuiven nauwkeurig"
+      ]
+    },
+    {
+      "name": "keypad to hint4",
+      "rules": [
+        {
+          "id": "keyhint4",
+          "description": "wanneer er 1004 gestuurd word wordt hint 4 gestuurd",
+          "limit": 100,
+          "conditions": {
+            "operator": "AND",
+            "list": [
+              {
+                "type": "device",
+                "type_id": "keypad",
+                "constraints": {
+                  "operator": "AND",
+                  "list": [
+                    {
+                      "component_id": "code",
+                      "comparison": "eq",
+                      "value": 1004
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "rule",
+                "type_id": "start",
+                "constraints": {
+                  "comparison": "gte",
+                  "value": 1
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "device",
+              "type_id": "display4",
+              "message": [
+                {
+                  "component_id": "hint",
+                  "instruction": "hint",
+                  "value": "er is net 1004 ingetoetst dus deze laat dit zien"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "hints": [
+        "Zet de schuiven nauwkeurig"
+      ]
+    },
+    {
+      "name": "keypad to hint5",
+      "rules": [
+        {
+          "id": "keyhint5",
+          "description": "wanneer er 1005 gestuurd word wordt hint 5 gestuurd",
+          "limit": 100,
+          "conditions": {
+            "operator": "AND",
+            "list": [
+              {
+                "type": "device",
+                "type_id": "keypad",
+                "constraints": {
+                  "operator": "AND",
+                  "list": [
+                    {
+                      "component_id": "code",
+                      "comparison": "eq",
+                      "value": 1005
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "rule",
+                "type_id": "start",
+                "constraints": {
+                  "comparison": "gte",
+                  "value": 1
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "device",
+              "type_id": "display5",
+              "message": [
+                {
+                  "component_id": "hint",
+                  "instruction": "hint",
+                  "value": "er is net 1005 ingetoetst dus deze laat dit zien"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "hints": [
+        "Zet de schuiven nauwkeurig"
+      ]
+    },
+    {
+      "name": "keypad to hint6",
+      "rules": [
+        {
+          "id": "keyhint6",
+          "description": "wanneer er 1006 gestuurd word wordt hint 6 gestuurd",
+          "limit": 100,
+          "conditions": {
+            "operator": "AND",
+            "list": [
+              {
+                "type": "device",
+                "type_id": "keypad",
+                "constraints": {
+                  "operator": "AND",
+                  "list": [
+                    {
+                      "component_id": "code",
+                      "comparison": "eq",
+                      "value": 1006
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "rule",
+                "type_id": "start",
+                "constraints": {
+                  "comparison": "gte",
+                  "value": 1
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "device",
+              "type_id": "display6",
+              "message": [
+                {
+                  "component_id": "hint",
+                  "instruction": "hint",
+                  "value": "er is net 1006 ingetoetst dus deze laat dit zien"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "hints": [
+        "Zet de schuiven nauwkeurig"
+      ]
+    },
+    {
+      "name": "keypad to door1 open",
+      "rules": [
+        {
+          "id": "keydoor1open",
+          "description": "in keypad word 2001 getikt, dan gaat de magneet1 open",
+          "limit": 100,
+          "conditions": {
+            "operator": "AND",
+            "list": [
+              {
+                "type": "device",
+                "type_id": "keypad",
+                "constraints": {
+                  "operator": "AND",
+                  "list": [
+                    {
+                      "component_id": "code",
+                      "comparison": "eq",
+                      "value": 2001
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "rule",
+                "type_id": "start",
+                "constraints": {
+                  "comparison": "gte",
+                  "value": 1
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "device",
+              "type_id": "door1",
+              "message": [
+                {
+                  "component_id": "door",
+                  "instruction": "open",
+                  "value": false
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "hints": [
+        "Zet de schuiven nauwkeurig"
+      ]
+    },
+    {
+      "name": "keypad to door1 dicht",
+      "rules": [
+        {
+          "id": "keydoor1dicht",
+          "description": "in keypad word 2010 getikt, dan gaat de magneet1 dicht",
+          "limit": 100,
+          "conditions": {
+            "operator": "AND",
+            "list": [
+              {
+                "type": "device",
+                "type_id": "keypad",
+                "constraints": {
+                  "operator": "AND",
+                  "list": [
+                    {
+                      "component_id": "code",
+                      "comparison": "eq",
+                      "value": 2010
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "rule",
+                "type_id": "start",
+                "constraints": {
+                  "comparison": "gte",
+                  "value": 1
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "device",
+              "type_id": "door1",
+              "message": [
+                {
+                  "component_id": "door",
+                  "instruction": "open",
+                  "value": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "hints": [
+        "Zet de schuiven nauwkeurig"
+      ]
+    }
+  ],
+  "general_events": [
+    {
+      "name": "Start knop",
+      "rules": [
+        {
+          "id": "start",
+          "description": "Als het spel start, moeten alle rode leds aan gaan en de groene uit",
+          "limit": 1,
+          "conditions": {
+            "operator": "OR",
+            "list": [
+              {
+                "type": "device",
+                "type_id": "front-end",
+                "constraints": {
+                  "component_id": "start",
+                  "comparison": "gte",
+                  "value": 1
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "timer",
+              "type_id": "general",
+              "message": [
+                {
+                  "instruction": "start"
+                }
+              ]
+            },
+            {
+              "type": "device",
+              "type_id": "display1",
+              "message": [
+                {
+                  "component_id": "hint",
+                  "instruction": "hint",
+                  "value": "Startknop is ingedrukt!"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Stop Time up",
+      "rules": [
+        {
+          "id": "time up",
+          "description": "Na de duration van het spel faalt de groep",
+          "limit": 1,
+          "conditions": {
+            "type": "timer",
+            "type_id": "general",
+            "constraints": {
+              "comparison": "eq",
+              "value": true
+            }
+          },
+          "actions": [
+            {
+              "type": "device",
+              "type_id": "display1",
+              "message": [
+                {
+                  "component_id": "hint",
+                  "instruction": "hint",
+                  "value": "Je tijd is voorbij!"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Stop knop",
+      "rules": [
+        {
+          "id": "stop",
+          "description": "Als het spel stopt, stop alles",
+          "limit": 1,
+          "conditions": {
+            "operator": "OR",
+            "list": [
+              {
+                "type": "device",
+                "type_id": "front-end",
+                "constraints": {
+                  "component_id": "stop",
+                  "comparison": "eq",
+                  "value": 1
+                }
+              }
+            ]
+          },
+          "actions": [
+            {
+              "type": "device",
+              "type_id": "door1",
+              "message": [
+                {
+                  "component_id": "door",
+                  "instruction": "open",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "type": "timer",
+              "type_id": "general",
+              "message": [
+                {
+                  "instruction": "pause"
+                }
+              ]
+            },
+            {
+              "type": "device",
+              "type_id": "display1",
+              "message" : [
+                {
+                  "component_id": "hint",
+                  "instruction": "hint",
+                  "value": "het spel is gestopt door de stop knop"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
