@@ -1,5 +1,5 @@
 import os
-from cc_library.src.sciler.scclib.device import Device
+from scclib.device import Device
 
 
 try:
@@ -12,15 +12,18 @@ import asyncio
 
 class Keypad(Device):
     currentValue = ""
+    submit = False
 
     def get_status(self):
         """
         Returns status of all custom components, in json format.
         """
         if self.currentValue == "":
-            return {}
+            return {"submit": self.submit}
 
-        return {"code": int(self.currentValue)}
+        return {"code": int(self.currentValue),
+                "submit": self.submit
+                }
 
     def perform_instruction(self, contents):
         """
@@ -43,6 +46,7 @@ class Keypad(Device):
         Defines a reset sequence for device.
         """
         self.currentValue = ""
+        self.submit = False
         self.log("reset")
 
     def __init__(self):
@@ -76,7 +80,11 @@ class Keypad(Device):
     def reader_handle_result(self, result):
         self.log("Submitted code: {}".format(result))
         self.currentValue = result
+        self.submit = True
         self.status_changed()
+        self.submit = False
+        self.status_changed()
+
 
     def reader_status_changed(self, result):
         self.log("Current status: {}".format(result))
