@@ -1,6 +1,6 @@
 import os
 
-from cc_library.src.sciler.scclib.device import Device
+from py_scc.src.sciler.scclib.device import Device
 
 
 class Display(Device):

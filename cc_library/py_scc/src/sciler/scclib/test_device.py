@@ -3,8 +3,7 @@ import json
 import os
 from unittest.mock import Mock, MagicMock
 from Adafruit_ADS1x15 import ADS1115 as ADC
-
-from cc_library.src.scripts.door import Door
+from py_scc.src.scripts.door import Door
 
 
 class TestDevice(unittest.TestCase):
