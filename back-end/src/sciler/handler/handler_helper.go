@@ -13,8 +13,10 @@ import (
 )
 
 // SendSetup sends the general set-up information to the front-end.
-// This includes the name, all hints and event descriptions
-// Statuses are also sent
+// This includes:
+// a message with the name, all hints, event descriptions, cameras and config buttons
+// a message for each device and the general timer
+// and message to send the event statuses
 func (handler *Handler) SendSetup() {
 	message := Message{
 		DeviceID: "back-end",
@@ -34,12 +36,21 @@ func (handler *Handler) SendSetup() {
 	handler.sendStatus("general")
 	for _, value := range handler.Config.Devices {
 		handler.sendStatus(value.ID)
+		// After sending device information, a request to the device is send to publish the current status,
+		// its return message will be handled in a new pipeline
+		// This way, the front-end will receive all device information from the config,
+		// and after that the current status from all the connected devices
 		handler.GetStatus(value.ID)
 	}
 	handler.sendEventStatus()
 }
 
 // SendComponentInstruction sends a list of instructions to a client, with a delay if given a valid duration.
+// This function is called in reaction to a execution of a rule
+// param cliendID  is the target for the message (topic to publish to)
+// param instructions are the contends with instructions for the device
+// param delay is the possible delay it will wait to send the message
+// if delay is not properly structured (XhXmXs), no error will be given, the function will continue as if no delay was given
 func (handler *Handler) SendComponentInstruction(clientID string, instructions []config.ComponentInstruction, delay string) {
 	message := Message{
 		DeviceID: "back-end",
@@ -47,7 +58,7 @@ func (handler *Handler) SendComponentInstruction(clientID string, instructions [
 		Type:     "instruction",
 		Contents: instructions,
 	}
-	// If the instruction is to reset the status of a front-end button, update its status in the config.
+	// If the instruction is to reset the status of a front-end button, update its status in the config
 	if clientID == "front-end" {
 		for _, instruction := range instructions {
 			handler.Config.Devices["front-end"].Status[instruction.ComponentID] = instruction.Value
@@ -56,10 +67,12 @@ func (handler *Handler) SendComponentInstruction(clientID string, instructions [
 	jsonMessage, _ := json.Marshal(&message)
 	delayDur, err := time.ParseDuration(delay)
 	if err == nil {
-		logger.Infof("waiting %s to send instruction data to %s: %s", delay, clientID, fmt.Sprint(message.Contents))
-		time.Sleep(delayDur)
-		logger.Infof("sending instruction data to %s after waiting %s: %s", clientID, delay, fmt.Sprint(message.Contents))
-		handler.Communicator.Publish(clientID, string(jsonMessage), 3)
+		go func() {
+			logger.Infof("waiting %s to send instruction data to %s: %s", delay, clientID, fmt.Sprint(message.Contents))
+			time.Sleep(delayDur)
+			logger.Infof("sending instruction data to %s after waiting %s: %s", clientID, delay, fmt.Sprint(message.Contents))
+			handler.Communicator.Publish(clientID, string(jsonMessage), 3)
+		}()
 	} else {
 		logger.Infof("sending instruction data to %s: %s", clientID, fmt.Sprint(message.Contents))
 		handler.Communicator.Publish(clientID, string(jsonMessage), 3)
@@ -67,6 +80,13 @@ func (handler *Handler) SendComponentInstruction(clientID string, instructions [
 }
 
 // SendLabelInstruction provides the action with a componentID from de LabelMap and a device to send it to
+// This function is called in reaction to a execution of a rule
+// SendComponentInstruction is called for each component in the LabelMap under labelID
+// Each instruction needs a componentID to execute on the device,
+// this is why the original instructions can not be immediately passed to the SendComponentInstruction function
+// param labelID is the target label for the message
+// param instructions are the contends with instructions for the device
+// param delay is the possible delay it will wait to send the message
 func (handler *Handler) SendLabelInstruction(labelID string, instructions []config.ComponentInstruction, delay string) {
 	for _, instruction := range instructions {
 		for _, comp := range handler.Config.LabelMap[labelID] {
@@ -76,8 +96,11 @@ func (handler *Handler) SendLabelInstruction(labelID string, instructions []conf
 	}
 }
 
-// SendInstruction sends a list of instructions to a client
-func (handler *Handler) SendInstruction(clientID string, instructions []map[string]string) {
+// sendInstruction sends a list of instructions to a client
+// This function is called in reaction to a instruction message to be back-end
+// param cliendID  is the target for the message (topic to publish to)
+// param instructions are the contends with instructions for the device
+func (handler *Handler) sendInstruction(clientID string, instructions []map[string]string) {
 	message := Message{
 		DeviceID: "back-end",
 		TimeSent: time.Now().Format("02-01-2006 15:04:05"),
@@ -90,6 +113,8 @@ func (handler *Handler) SendInstruction(clientID string, instructions []map[stri
 }
 
 // updateStatus is the function to process status messages.
+// If the device is in the config, and the status types are correct, the device status gets updated
+// if the device is the front-end, handleFrontEndStatus() is called
 func (handler *Handler) updateStatus(raw Message) {
 	contents := raw.Contents.(map[string]interface{})
 	if device, ok := handler.Config.Devices[raw.DeviceID]; ok {
@@ -110,8 +135,10 @@ func (handler *Handler) updateStatus(raw Message) {
 	}
 }
 
-// sendStatus sends all status and connection data of a device to the front-end.
-// Information retrieved from config.
+// sendStatus sends all status and connection data of device/timer deviceID to the front-end
+// For devices the status of components and the connection status is send
+// For timers the duration left and the state are send
+// param deviceID can be the ID of a device or a timer
 func (handler *Handler) sendStatus(deviceID string) {
 	var message Message
 	if device, ok := handler.Config.Devices[deviceID]; ok {
