@@ -36,6 +36,8 @@ matrix:
 
     - language: go
       go: 1.13.4
+      env:
+        - CODECOV_TOKEN="23feadc4-7fba-458a-8e46-b6f48347ef7f"
       go_import_path: github.com/IssaHanou/BEP_1920_Q2/back-end
       before_install:
         - go get -u golang.org/x/lint/golint
