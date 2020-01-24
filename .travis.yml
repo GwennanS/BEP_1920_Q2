@@ -47,3 +47,6 @@ matrix:
         - golint -set_exit_status sciler/...
         - go test -v sciler/...
         - go build sciler
+        - go test -race -coverprofile=coverage.txt -covermode=atomic
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
