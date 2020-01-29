@@ -1,0 +1,702 @@
+{
+  "button_events": [
+    {
+      "actions": [
+        {
+          "message": [
+            {
+              "instruction": "start"
+            }
+          ],
+          "type": "timer",
+          "type_id": "general"
+        },
+        {
+          "message": [
+            {
+              "component_id": "gameState",
+              "instruction": "set state",
+              "value": "in spel"
+            }
+          ],
+          "type": "device",
+          "type_id": "front-end"
+        }
+      ],
+      "conditions": {},
+      "description": "start het spel",
+      "id": "start",
+      "limit": 0
+    },
+    {
+      "actions": [
+        {
+          "message": [
+            {
+              "component_id": "gameState",
+              "instruction": "set state",
+              "value": "spel gestopt"
+            }
+          ],
+          "type": "device",
+          "type_id": "front-end"
+        },
+        {
+          "message": [
+            {
+              "instruction": "stop"
+            }
+          ],
+          "type": "timer",
+          "type_id": "general"
+        }
+      ],
+      "conditions": {},
+      "description": "stop het spel",
+      "id": "stop",
+      "limit": 1
+    },
+    {
+      "actions": [
+        {
+          "message": [
+            {
+              "component_id": "all",
+              "instruction": "y",
+              "value": 50
+            }
+          ],
+          "type": "device",
+          "type_id": "hue_lights"
+        }
+      ],
+      "conditions": {},
+      "description": "y op 50",
+      "id": "y50",
+      "limit": 0
+    },
+    {
+      "actions": [
+        {
+          "message": [
+            {
+              "component_id": "all",
+              "instruction": "x",
+              "value": 50
+            }
+          ],
+          "type": "device",
+          "type_id": "hue_lights"
+        }
+      ],
+      "conditions": {},
+      "description": "x op 50",
+      "id": "x50",
+      "limit": 0
+    },
+    {
+      "actions": [
+        {
+          "message": [
+            {
+              "component_id": "all",
+              "instruction": "bri",
+              "value": 50
+            }
+          ],
+          "type": "device",
+          "type_id": "hue_lights"
+        }
+      ],
+      "conditions": {},
+      "description": "bri op 50",
+      "id": "bri50",
+      "limit": 0
+    },
+    {
+      "actions": [
+        {
+          "message": [
+            {
+              "component_id": "all",
+              "instruction": "x",
+              "value": 20
+            }
+          ],
+          "type": "device",
+          "type_id": "hue_lights"
+        }
+      ],
+      "conditions": {},
+      "description": "x op 20",
+      "id": "x20",
+      "limit": 0
+    },
+    {
+      "actions": [
+        {
+          "message": [
+            {
+              "component_id": "all",
+              "instruction": "y",
+              "value": 70
+            }
+          ],
+          "type": "device",
+          "type_id": "hue_lights"
+        }
+      ],
+      "conditions": {},
+      "description": "y op 70",
+      "id": "y70",
+      "limit": 0
+    }
+  ],
+  "cameras": [
+    {
+      "link": "http://192.168.0.102/live_view.html",
+      "name": "LETTERLIJK een camera"
+    }
+  ],
+  "devices": [
+    {
+      "description": "Control board with three switches, three slides with lights and one main switch.",
+      "id": "controlBoard",
+      "input": {
+        "greenSwitch": "boolean",
+        "mainSwitch": "boolean",
+        "orangeSwitch": "boolean",
+        "redSwitch": "boolean",
+        "slider1": "numeric",
+        "slider2": "numeric",
+        "slider3": "numeric"
+      },
+      "output": {
+        "greenLight1": {
+          "instructions": {
+            "blink": "array",
+            "turnOnOff": "boolean"
+          },
+          "type": "string"
+        },
+        "greenLight2": {
+          "instructions": {
+            "blink": "array",
+            "turnOnOff": "boolean"
+          },
+          "type": "string"
+        },
+        "greenLight3": {
+          "instructions": {
+            "blink": "array",
+            "turnOnOff": "boolean"
+          },
+          "type": "string"
+        },
+        "redLight1": {
+          "instructions": {
+            "blink": "array",
+            "turnOnOff": "boolean"
+          },
+          "type": "string"
+        },
+        "redLight2": {
+          "instructions": {
+            "blink": "array",
+            "turnOnOff": "boolean"
+          },
+          "type": "string"
+        },
+        "redLight3": {
+          "instructions": {
+            "blink": "array",
+            "turnOnOff": "boolean"
+          },
+          "type": "string"
+        }
+      }
+    },
+    {
+      "description": "displays messages",
+      "id": "display",
+      "input": {},
+      "output": {
+        "hint": {
+          "instructions": {
+            "hint": "string"
+          },
+          "type": "string"
+        }
+      }
+    },
+    {
+      "description": "Whatsapp1 van de spelers",
+      "id": "Whatsapp1",
+      "input": {
+        "currentPerson": "string",
+        "messages": "array",
+        "speler-bericht": "string",
+        "submit": "boolean",
+        "typing": "string"
+      },
+      "output": {
+        "hint": {
+          "instructions": {
+            "hint": "string"
+          },
+          "label": [
+            "hint",
+            "whatsapp",
+            "hint1"
+          ],
+          "type": "string"
+        },
+        "person": {
+          "instructions": {
+            "tekst": "string"
+          },
+          "label": [
+            "whatsapp"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "description": "Whatsapp2 van de spelers",
+      "id": "Whatsapp2",
+      "input": {
+        "currentPerson": "string",
+        "messages": "array",
+        "speler-bericht": "string",
+        "submit": "boolean",
+        "typing": "string"
+      },
+      "output": {
+        "hint": {
+          "instructions": {
+            "hint": "string"
+          },
+          "label": [
+            "hint",
+            "whatsapp",
+            "hint2"
+          ],
+          "type": "string"
+        },
+        "person": {
+          "instructions": {
+            "tekst": "string"
+          },
+          "label": [
+            "whatsapp"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "description": "Whatsapp3 van de spelers",
+      "id": "Whatsapp3",
+      "input": {
+        "currentPerson": "string",
+        "messages": "array",
+        "speler-bericht": "string",
+        "submit": "boolean",
+        "typing": "string"
+      },
+      "output": {
+        "hint": {
+          "instructions": {
+            "hint": "string"
+          },
+          "label": [
+            "hint",
+            "whatsapp",
+            "hint3"
+          ],
+          "type": "string"
+        },
+        "person": {
+          "instructions": {
+            "tekst": "string"
+          },
+          "label": [
+            "whatsapp"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    {
+      "description": "Keypad with input 4 numbers",
+      "id": "keypad",
+      "input": {
+        "code": "numeric"
+      },
+      "output": {}
+    },
+    {
+      "description": "4 spotlights",
+      "id": "hue_lights",
+      "input": {},
+      "output": {
+        "all": {
+          "instructions": {
+            "bri": "numeric",
+            "manual": "array",
+            "scene": "string",
+            "x": "numeric",
+            "y": "numeric"
+          },
+          "type": "string"
+        },
+        "spot1": {
+          "instructions": {
+            "manual": "array"
+          },
+          "type": "string"
+        },
+        "spot2": {
+          "instructions": {
+            "manual": "array"
+          },
+          "type": "string"
+        },
+        "spot3": {
+          "instructions": {
+            "manual": "array"
+          },
+          "type": "string"
+        },
+        "spot4": {
+          "instructions": {
+            "manual": "array"
+          },
+          "type": "string"
+        }
+      }
+    }
+  ],
+  "general": {
+    "duration": "5m",
+    "host": "localhost",
+    "name": "Demo Presentatie",
+    "port": 1883
+  },
+  "general_events": [
+    {
+      "name": "Stop Time up",
+      "rules": [
+        {
+          "actions": [
+            {
+              "message": [
+                {
+                  "instruction": "hint",
+                  "value": "Je tijd is voorbij!"
+                }
+              ],
+              "type": "label",
+              "type_id": "hint"
+            }
+          ],
+          "conditions": {
+            "constraints": {
+              "comparison": "eq",
+              "value": true
+            },
+            "type": "timer",
+            "type_id": "general"
+          },
+          "description": "Na de duration van het spel faalt de groep",
+          "id": "time up",
+          "limit": 1
+        }
+      ]
+    },
+    {
+      "name": "Stop Done",
+      "rules": [
+        {
+          "actions": [
+            {
+              "message": [
+                {
+                  "instruction": "hint",
+                  "value": "Puzzle opgelost!"
+                }
+              ],
+              "type": "label",
+              "type_id": "hint"
+            },
+            {
+              "message": [
+                {
+                  "instruction": "pause"
+                }
+              ],
+              "type": "timer",
+              "type_id": "general"
+            }
+          ],
+          "conditions": {
+            "list": [
+              {
+                "constraints": {
+                  "comparison": "gte",
+                  "value": 1
+                },
+                "type": "rule",
+                "type_id": "hue-nice"
+              }
+            ],
+            "operator": "AND"
+          },
+          "description": "Puzzles zijn opgelost dus time stop",
+          "id": "Puzzles done",
+          "limit": 1
+        }
+      ]
+    }
+  ],
+  "puzzles": [
+    {
+      "hints": [
+        "Zet de schuiven nauwkeurig"
+      ],
+      "name": "puzzel licht",
+      "rules": [
+        {
+          "actions": [
+            {
+              "message": [
+                {
+                  "instruction": "hint",
+                  "value": "Licht staat mooi!"
+                }
+              ],
+              "type": "label",
+              "type_id": "hint"
+            }
+          ],
+          "conditions": {
+            "list": [
+              {
+                "constraints": {
+                  "list": [
+                    {
+                      "comparison": "lte",
+                      "component_id": "slider1",
+                      "value": 80
+                    },
+                    {
+                      "comparison": "gte",
+                      "component_id": "slider1",
+                      "value": 10
+                    },
+                    {
+                      "comparison": "lte",
+                      "component_id": "slider2",
+                      "value": 10
+                    },
+                    {
+                      "comparison": "gte",
+                      "component_id": "slider2",
+                      "value": 0
+                    },
+                    {
+                      "comparison": "lte",
+                      "component_id": "slider3",
+                      "value": 100
+                    },
+                    {
+                      "comparison": "gte",
+                      "component_id": "slider3",
+                      "value": 80
+                    }
+                  ],
+                  "operator": "AND"
+                },
+                "type": "device",
+                "type_id": "controlBoard"
+              },
+              {
+                "constraints": {
+                  "list": [
+                    {
+                      "comparison": "eq",
+                      "component_id": "gameState",
+                      "value": "in spel"
+                    }
+                  ],
+                  "operator": "AND"
+                },
+                "type": "device",
+                "type_id": "front-end"
+              }
+            ],
+            "operator": "AND"
+          },
+          "description": "Wanneer de hue lights mooi staan, is de puzzle opgelost",
+          "id": "hue-nice",
+          "limit": 1
+        },
+        {
+          "actions": [
+            {
+              "message": [
+                {
+                  "component_id": "all",
+                  "instruction": "bri",
+                  "value": 60
+                }
+              ],
+              "type": "device",
+              "type_id": "hue_lights"
+            }
+          ],
+          "conditions": {
+            "list": [
+              {
+                "constraints": {
+                  "list": [
+                    {
+                      "comparison": "lte",
+                      "component_id": "slider1",
+                      "value": 100
+                    },
+                    {
+                      "comparison": "gte",
+                      "component_id": "slider1",
+                      "value": 0
+                    }
+                  ],
+                  "operator": "AND"
+                },
+                "type": "device",
+                "type_id": "controlBoard"
+              },
+              {
+                "constraints": {
+                  "comparison": "eq",
+                  "component_id": "gameState",
+                  "value": "in spel"
+                },
+                "type": "device",
+                "type_id": "front-end"
+              }
+            ],
+            "operator": "AND"
+          },
+          "description": "Wanneer slider1 beweegt, pas brightness aan",
+          "id": "hue-bri",
+          "limit": 0
+        },
+        {
+          "actions": [
+            {
+              "message": [
+                {
+                  "component_id": "all",
+                  "instruction": "x",
+                  "value": 60
+                }
+              ],
+              "type": "device",
+              "type_id": "hue_lights"
+            }
+          ],
+          "conditions": {
+            "list": [
+              {
+                "constraints": {
+                  "list": [
+                    {
+                      "comparison": "lte",
+                      "component_id": "slider2",
+                      "value": 100
+                    },
+                    {
+                      "comparison": "gte",
+                      "component_id": "slider2",
+                      "value": 0
+                    }
+                  ],
+                  "operator": "AND"
+                },
+                "type": "device",
+                "type_id": "controlBoard"
+              },
+              {
+                "constraints": {
+                  "comparison": "eq",
+                  "component_id": "gameState",
+                  "value": "in spel"
+                },
+                "type": "device",
+                "type_id": "front-end"
+              }
+            ],
+            "operator": "AND"
+          },
+          "description": "Wanneer slider2 beweegt, pas x aan",
+          "id": "hue-x",
+          "limit": 0
+        },
+        {
+          "actions": [
+            {
+              "message": [
+                {
+                  "component_id": "all",
+                  "instruction": "y",
+                  "value": 60
+                }
+              ],
+              "type": "device",
+              "type_id": "hue_lights"
+            }
+          ],
+          "conditions": {
+            "list": [
+              {
+                "constraints": {
+                  "list": [
+                    {
+                      "comparison": "lte",
+                      "component_id": "slider3",
+                      "value": 100
+                    },
+                    {
+                      "comparison": "gte",
+                      "component_id": "slider3",
+                      "value": 0
+                    }
+                  ],
+                  "operator": "AND"
+                },
+                "type": "device",
+                "type_id": "controlBoard"
+              },
+              {
+                "constraints": {
+                  "comparison": "eq",
+                  "component_id": "gameState",
+                  "value": "in spel"
+                },
+                "type": "device",
+                "type_id": "front-end"
+              }
+            ],
+            "operator": "AND"
+          },
+          "description": "Wanneer slider3 beweegt, pas y aan",
+          "id": "hue-y",
+          "limit": 0
+        }
+      ]
+    }
+  ],
+  "timers": []
+}

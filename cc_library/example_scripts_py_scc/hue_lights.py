@@ -26,6 +26,9 @@ class HueLights(Device):
         config = open(file=abs_file_path)
         super().__init__(config)
         self.scene = "none"
+        self.bri = 0
+        self.x = 0
+        self.y = 0
         self.hue_bridge = "http://192.168.178.20/"
         self.hue_user = "JQrPwJNthHtfPEG9vhW3mqwIVuFo3ESLD3gvkZOB"
         self.group = "Spotlights"
@@ -36,10 +39,13 @@ class HueLights(Device):
 
     def perform_instruction(self, action):
         instruction = action.get("instruction")
+
         if instruction == "scene":
             self.set_scene(action)
-        if instruction == "manual":
+        elif instruction == "manual":
             self.set_manual(action.get("component_id"), action.get("value"))
+        elif instruction == "bri" or instruction == "x" or instruction == "y":
+            self.set_single(action)
         else:
             return False
         return True
@@ -120,8 +126,46 @@ class HueLights(Device):
             self.log("Unable to publish template.")
         self.status_changed()
 
+    def set_single(self, action):
+
+        if action.get("instruction") == "bri":
+            self.bri = action.get("value")
+        elif action.get("instruction") == "x":
+            self.x = 1/100*action.get("value")
+        elif action.get("instruction") == "y":
+            self.y = 1/100*action.get("value")
+        params = json.dumps({"on": True, "bri": self.bri, "xy": [self.x, self.y]})
+        print(params)
+        if action.get("component_id") == "all":
+            url = (
+                    self.hue_bridge
+                    + "api/"
+                    + self.hue_user
+                    + "/groups/"
+                    + self.group
+                    + "/action"
+            )
+        else:
+            url = (
+                    self.hue_bridge
+                    + "api/"
+                    + self.hue_user
+                    + "/lights/"
+                    + action.get("component_id")[-1:]
+                    + "/state"
+            )
+        resp = requests.put(url, data=params, headers=self.header)
+        if resp.status_code == 200:
+            self.log("Template has been published.")
+        else:
+            self.log("Unable to publish template.")
+        self.status_changed()
+
     def reset(self):
         self.scene = "none"
+        self.bri = 0
+        self.x = 0
+        self.y = 0
         params = json.dumps({"on": True, "bri": 50, "xy": [0.3, 0.3]})
         resp = requests.put(
             self.hue_bridge
